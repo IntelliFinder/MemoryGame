@@ -1,0 +1,32 @@
+* {
+  font-family: sans-serif;
+  margin: 0;
+}
+button {
+  height: 40px;
+  width: 200px;
+}
+.ON{ /*Are two classes necessary?*/
+  z-index: -1;
+  display: inline-block;
+  position: absolute;
+}
+.OFF{
+  position: absolute;
+  display: inline-block;
+  position: absolute;
+
+}
+.YES{
+    position: absolute;
+    display: inline-block;
+
+}
+.NO{
+    position: relative; /*Play around with relative position*/
+    display:inline;
+    z-index: -1;
+}
+div .container{
+  display: inline;
+}
