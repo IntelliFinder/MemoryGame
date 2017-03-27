@@ -13,6 +13,7 @@ Part of a project for the Technion Certified Web Developer course
 
   - Fischer-Yates algorithm for randomization
   - React Clock lifecycle component
+  - UML Diagram of JS Code Structure
 
 
 > Feel free to leave constructive comments for improvement
