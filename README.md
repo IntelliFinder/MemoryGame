@@ -1,6 +1,6 @@
 # Memory Game 
 
-[![N|Solid](http://blog-assets.risingstack.com/2016/Jan/react_best_practices-1453211146748.png)](https://nodesource.com/products/nsolid)
+(http://blog-assets.risingstack.com/2016/Jan/react_best_practices-1453211146748.png)
 
 Part of a project for the Technion Certified Web Developer course
 
