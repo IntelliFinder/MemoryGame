@@ -47,3 +47,7 @@ $ cd memory-game
 $ index.html
 
 or... open manually by clicking 
+
+### Diagaram
+
+![alt tag](https://github.com/IntelliFinder/MemoryGame/blob/master/memoryGameProject%20-%20ERD.png)
