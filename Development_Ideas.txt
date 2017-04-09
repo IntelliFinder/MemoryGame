@@ -1,1 +1,11 @@
+Plan:
+1. Use React Documentation
+2. Codepen similar examples
+3. Create mock up without images, only with buttons. 
+4. Find similar games to Memory Game: 
 
+
+
+General:
+1.Use React life-cycle for reset
+2. conditional onclick functionality
