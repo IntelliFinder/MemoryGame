@@ -1,0 +1,4 @@
+Directions:
+1.Implement pair of images with buttons and an array that when  there are two values it's good otherwise return the identicala if array length is two. 
+2. Disable clicking when array value is larger than two.
+3. Implement for all n length buttons.
