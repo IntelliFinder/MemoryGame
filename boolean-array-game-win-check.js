@@ -1,8 +1,8 @@
 //Recieve a boolean array of elements representing if a picture is shown or not, ordered by pairs of correlating, identical images
-function(props){
-
-    total=props.total
-    array=props.array
+function CheckWin(props){
+    win=false;
+    total=props.total;
+    array=props.array;
 
     curr=0
     
@@ -12,43 +12,32 @@ function(props){
             if(array[i] & array[i+1]){
                 curr++;
                 if(total==curr){
-                    return true;
+                    win=true;
                 }    
             }
     }
-    return false;
+    render(){
+      return{
+      if(win)
+        <h2>   You won!</h2>
+      else
+        <h2> You lose! </h2>
+      }
+  }
 }
 //Hierarchy of three components with html tag randomization in parent
 //Attempt to create class of pairs of images with "lifting state up", that is they have no control over the state only the relavant parent component does
-const scaleNames = {
-  c: 'Celsius',
-  f: 'Fahrenheit'
-};
-
-function toCelsius(fahrenheit) {
-  return (fahrenheit - 32) * 5 / 9;
-}
-
-function toFahrenheit(celsius) {
-  return (celsius * 9 / 5) + 32;
-}
-
-function tryConvert(temperature, convert) {
-  const input = parseFloat(temperature);
-  if (Number.isNaN(input)) {
-    return '';
-  }
-  const output = convert(input);
-  const rounded = Math.round(output * 1000) / 1000;
-  return rounded.toString();
-}
-
-function BoilingVerdict(props) {
-  if (props.celsius >= 100) {
-    return <p>The water would boil.</p>;
-  }
-  return <p>The water would not boil.</p>;
-}
+//Fischer-Yates Algorithm
+var randomArray=function(x){  
+        var length=x.length, j, temp, i;
+        for(i=length-1; i>0;i--){
+            j=Math.floor(Math.random()*(i+1));
+            temp=x[i];
+            x[i]=x[j];
+            x[j]=temp;
+        }
+        return x;
+  };
 
 class TemperatureInput extends React.Component {
   constructor(props) {
@@ -56,19 +45,25 @@ class TemperatureInput extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e) {
-    this.props.onTemperatureChange(e.target.value);
+  handleChange(prevState) {
+    this.props.onToggleChange(prevState);
   }
 
   render() {
-    const temperature = this.props.temperature;
-    const scale = this.props.scale;
+    const isToggle = this.props.toggle;
     return (
-      <fieldset>
-        <legend>Enter temperature in {scaleNames[scale]}:</legend>
-        <input value={temperature}
-               onChange={this.handleChange} />
-      </fieldset>
+      <div>
+      <img className= {isToggle ? 'YES' : 'NO'}
+      onClick={this.handleChange}
+      src="http://placehold.it/350x150"
+      alt='placeholder'
+      height='150' width='150'/>
+      <img className={isToggle ? 'ON' : 'OFF'}
+      onClick={this.handleChange}
+      src="http://www.w3schools.com/images/w3schools_green.jpg"
+      alt='placeholder'
+      height='150' width='150'/>
+      </div>
     );
   }
 }
@@ -78,35 +73,28 @@ class Calculator extends React.Component {
     super(props);
     this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
     this.handleFahrenheitChange = this.handleFahrenheitChange.bind(this);
-    this.state = {temperature: '', scale: 'c'};
+    this.state = {isToggleOnOne: false, isToggleOnTwo: false };
   }
 
-  handleCelsiusChange(temperature) {
-    this.setState({scale: 'c', temperature});
+  handleFirstChange(prevState) {
+    this.setState({isToggleOnOne: !prevState.isToggleOnOne});
   }
 
-  handleFahrenheitChange(temperature) {
-    this.setState({scale: 'f', temperature});
+  handleSecondChange(prevState) {
+    this.setState({isToggleOnTwo: !prevState.isToggleOnTwo});
   }
 
   render() {
-    const scale = this.state.scale;
-    const temperature = this.state.temperature;
-    const celsius = scale === 'f' ? tryConvert(temperature, toCelsius) : temperature;
-    const fahrenheit = scale === 'c' ? tryConvert(temperature, toFahrenheit) : temperature;
-
+    const ToggleOnOne = this.state.isToggleOnOne;
+    const ToggleOnTwo = this.state.isToggleOnTwo;
     return (
       <div>
         <TemperatureInput
-          scale="c"
-          temperature={celsius}
-          onTemperatureChange={this.handleCelsiusChange} />
+          toggle={ToggleOnOne}
+          onToggleChange={this.handleFirstChange} />
         <TemperatureInput
-          scale="f"
-          temperature={fahrenheit}
-          onTemperatureChange={this.handleFahrenheitChange} />
-        <BoilingVerdict
-          celsius={parseFloat(celsius)} />
+          toggle={ToggleOnTwo}
+          onToggleChange={this.handleSecondChange} />
       </div>
     );
   }
@@ -114,11 +102,15 @@ class Calculator extends React.Component {
 
 class Game extends React.Component{
     constructor(props){
-        this.state={total: false, }
+        this.state={total: 0}
     }
+     handlePairChange(amount) {
+    this.setState({total: amount});
+  }
     render(){
         return(
-            <Calculator />
+            <Calculator amountTotal={this.state.total}/>
+            <CheckWin amountTotal={this.state.total}/>
         );}
 }
 
